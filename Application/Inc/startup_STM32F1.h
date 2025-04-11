@@ -15,7 +15,6 @@ extern unsigned int _ebss;
 extern unsigned int _la_data; 
 
 void main(void); 
-
 void Default_Handler(void); 
 
 void Reset_Handler(void); 

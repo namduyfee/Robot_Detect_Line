@@ -4,6 +4,7 @@
 
 #include "main.h"
 
+#define GPIOA ((GPIO_TypeDef*)(GPIOA_BASE))
 #define GPIOB ((GPIO_TypeDef*)(GPIOB_BASE))
 #define GPIOC ((GPIO_TypeDef*)(GPIOC_BASE))
 #define AFIO ((AFIO_TypeDef*)(AFIO_BASE))
@@ -31,6 +32,7 @@ typedef struct
 
 void config_AFIO(void);
 
+void config_GPIOA(void); 
 void config_GPIOC(void); 
 void config_GPIOB(void); 
 

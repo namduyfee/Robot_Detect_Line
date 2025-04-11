@@ -3,67 +3,67 @@
 #include "startup_STM32F1.h"
 #include "main.h"
 
-unsigned int vectors[] __attribute__((section(".isr_vector")))= {
-    STACK_START, 
-    (unsigned int)Reset_Handler              , 
-    (unsigned int)NMI_Handler                , 
-    (unsigned int)HardFault_Handler          , 
-    (unsigned int)MemManage_Handler          ,     
-    (unsigned int)BusFault_Handler           , 
-    (unsigned int)UsageFault_Handler         , 
-    0,
-    0,
-    0,
-    0,
-    (unsigned int)SVC_Handler                ,    
-    (unsigned int)DebugMon_Handler           , 
-    0, 
-    (unsigned int)PendSV_Handler             , 
-    (unsigned int)SysTick_Handler            ,     
-    (unsigned int)WWDG_IRQHandler            , 
-    (unsigned int)PVD_Handler, 
-    (unsigned int)TAMPER_IRQHandler          , 
-    (unsigned int)RTC_IRQHandler             ,     
-    (unsigned int)FLASH_IRQHandler           , 
-    (unsigned int)RCC_IRQHandler             , 
-    (unsigned int)EXTI0_IRQHandler           , 
-    (unsigned int)EXTI1_IRQHandler           ,    
-    (unsigned int)EXTI2_IRQHandler           , 
-    (unsigned int)EXTI3_IRQHandler           , 
-    (unsigned int)EXTI4_IRQHandler           ,
-    (unsigned int)DMA1_Channel1_IRQHandler   ,
-    (unsigned int)DMA1_Channel2_IRQHandler   ,
-    (unsigned int)DMA1_Channel3_IRQHandler   ,
-    (unsigned int)DMA1_Channel4_IRQHandler   ,
-    (unsigned int)DMA1_Channel5_IRQHandler   ,
-    (unsigned int)DMA1_Channel6_IRQHandler   ,
-    (unsigned int)DMA1_Channel7_IRQHandler   ,    
-    (unsigned int)ADC1_2_IRQHandler          ,
-    (unsigned int)USB_HP_CAN1_TX_IRQHandler  ,    
-    (unsigned int)USB_LP_CAN1_RX0_IRQHandler ,
-    (unsigned int)CAN1_RX1_IRQHandler        ,    
-    (unsigned int)CAN1_SCE_IRQHandler        ,
-    (unsigned int)EXTI9_5_IRQHandler         ,    
-    (unsigned int)TIM1_BRK_IRQHandler        ,
-    (unsigned int)TIM1_UP_IRQHandler         ,    
-    (unsigned int)TIM1_TRG_COM_IRQHandler    ,
-    (unsigned int)TIM1_CC_IRQHandler         ,    
-    (unsigned int)TIM2_IRQHandler            ,
-    (unsigned int)TIM3_IRQHandler            ,    
-    (unsigned int)TIM4_IRQHandler            ,    
-    (unsigned int)I2C1_EV_IRQHandler         ,
-    (unsigned int)I2C1_ER_IRQHandler         ,    
-    (unsigned int)I2C2_EV_IRQHandler         ,
-    (unsigned int)I2C2_ER_IRQHandler         ,    
-    (unsigned int)SPI1_IRQHandler            ,
-    (unsigned int)SPI2_IRQHandler            ,    
-    (unsigned int)USART1_IRQHandler          ,
-    (unsigned int)USART2_IRQHandler          ,        
-    (unsigned int)USART3_IRQHandler          , 
-    (unsigned int)EXTI15_10_IRQHandler       ,
-    (unsigned int)RTC_Alarm_IRQHandler       ,   
-    (unsigned int)USBWakeUp_IRQHandler
-}; 
+typedef void (*ISR_Handler)(void);
+
+
+ISR_Handler vectors[] __attribute__((section(".isr_vector"))) = {
+    (ISR_Handler)STACK_START,                        // Initial Stack Pointer
+    Reset_Handler,              // Reset
+    NMI_Handler,                // NMI
+    HardFault_Handler,          // Hard Fault
+    MemManage_Handler,          // MemManage
+    BusFault_Handler,           // BusFault
+    UsageFault_Handler,         // UsageFault
+    0, 0, 0, 0,                 // Reserved
+    SVC_Handler,                // SVCall
+    DebugMon_Handler,           // Debug monitor
+    0,                          // Reserved
+    PendSV_Handler,             // PendSV
+    SysTick_Handler,            // SysTick
+    WWDG_IRQHandler,            // Window Watchdog
+    PVD_Handler,                // PVD through EXTI Line
+    TAMPER_IRQHandler,          // Tamper
+    RTC_IRQHandler,             // RTC
+    FLASH_IRQHandler,           // Flash
+    RCC_IRQHandler,             // RCC
+    EXTI0_IRQHandler,           // EXTI Line 0
+    EXTI1_IRQHandler,           // EXTI Line 1
+    EXTI2_IRQHandler,           // EXTI Line 2
+    EXTI3_IRQHandler,           // EXTI Line 3
+    EXTI4_IRQHandler,           // EXTI Line 4
+    DMA1_Channel1_IRQHandler,
+    DMA1_Channel2_IRQHandler,
+    DMA1_Channel3_IRQHandler,
+    DMA1_Channel4_IRQHandler,
+    DMA1_Channel5_IRQHandler,
+    DMA1_Channel6_IRQHandler,
+    DMA1_Channel7_IRQHandler,
+    ADC1_2_IRQHandler,
+    USB_HP_CAN1_TX_IRQHandler,
+    USB_LP_CAN1_RX0_IRQHandler,
+    CAN1_RX1_IRQHandler,
+    CAN1_SCE_IRQHandler,
+    EXTI9_5_IRQHandler,
+    TIM1_BRK_IRQHandler,
+    TIM1_UP_IRQHandler,
+    TIM1_TRG_COM_IRQHandler,
+    TIM1_CC_IRQHandler,
+    TIM2_IRQHandler,
+    TIM3_IRQHandler,
+    TIM4_IRQHandler,
+    I2C1_EV_IRQHandler,
+    I2C1_ER_IRQHandler,
+    I2C2_EV_IRQHandler,
+    I2C2_ER_IRQHandler,
+    SPI1_IRQHandler,
+    SPI2_IRQHandler,
+    USART1_IRQHandler,
+    USART2_IRQHandler,
+    USART3_IRQHandler,
+    EXTI15_10_IRQHandler,
+    RTC_Alarm_IRQHandler,
+    USBWakeUp_IRQHandler
+};
 
 void Reset_Handler(void) {
     // copy .data section to RAM
@@ -84,7 +84,8 @@ void Reset_Handler(void) {
 
 } 
 
-void Default_Handler(void) {
+void Default_Handler(void) 
+{
 
     while(1) {
         toggle_led();

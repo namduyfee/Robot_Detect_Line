@@ -10,6 +10,7 @@ SECTIONS
 {
     .text : 
     {
+        KEEP(*(.isr_vector))  /* Giữ lại bảng vector */
         *(.isr_vector)  /* Vector table */
         *(.text)        /* Code section */
         *(.rodata)      /* Read-only data */

@@ -9,8 +9,26 @@
 // #define SYSCLK_FREQ_56MHz  56000000 
 #define SYSCLK_FREQ_72MHz  72000000
 
+
+#ifdef SYSCLK_FREQ_HSE
+  #define SYSCLK SYSCLK_FREQ_HSE
+#elif defined(SYSCLK_FREQ_24MHz)
+  #define SYSCLK SYSCLK_FREQ_24MHz
+#elif defined(SYSCLK_FREQ_36MHz)
+  #define SYSCLK SYSCLK_FREQ_36MHz  
+#elif defined(SYSCLK_FREQ_48MHz)
+  #define SYSCLK SYSCLK_FREQ_48MHz
+#elif defined(SYSCLK_FREQ_56MHz)
+  #define SYSCLK SYSCLK_FREQ_56MHz
+#elif defined(SYSCLK_FREQ_72MHz)
+  #define SYSCLK SYSCLK_FREQ_72MHz
+#endif
+
+
 static void set_sys_clock(void);
 static void set_sys_clock_to_HSE(void); 
+static void calculate_clock(void); 
+
 
 static void set_sys_clock_to_24(void); 
 static void set_sys_clock_to_36(void); 
@@ -18,17 +36,8 @@ static void set_sys_clock_to_48(void);
 static void set_sys_clock_to_56(void); 
 static void set_sys_clock_to_72(void); 
 
-void enable_clock_peripherals(void) 
-{
-  RCC->APB2ENR |= RCC_APB2ENR_AFIOEN;
-  RCC->APB2ENR |= RCC_APB2ENR_IOPBEN; 
-  RCC->APB2ENR |= RCC_APB2ENR_IOPCEN; 
-  RCC->APB1ENR |= RCC_APB1ENR_TIM4EN; 
-  RCC->AHBENR  |= RCC_AHBENR_DMA1EN;  
-  RCC->APB2ENR |= RCC_APB2ENR_ADC1EN;
-  RCC->APB1ENR |= RCC_APB1ENR_I2C1EN;
-}
-
+uint32_t SystemCoreClock;
+uint32_t clockOfHCLK, clockOfPCLK1, clockOfPCLK2; 
 
 void config_RCC(void)
 {
@@ -52,7 +61,38 @@ void config_RCC(void)
     RCC->CIR = 0x009F0000;
 
     set_sys_clock(); 
-    
+
+    calculate_clock(); 
+
+}
+
+static void calculate_clock(void) 
+{
+  uint32_t AHB_Div =  ( ((RCC->CFGR)>>4) & (uint32_t)(0x0F) );
+  uint32_t APB1_Div = ( ((RCC->CFGR)>>8) & (uint32_t)(0x07) );
+  uint32_t APB2_Div = ( ((RCC->CFGR)>>11) & (uint32_t)(0x07) );
+
+  if(AHB_Div < 8 ) 
+    clockOfHCLK = SYSCLK; 
+  else {
+    if(AHB_Div < 12)
+      clockOfHCLK = SYSCLK / (pow(2, AHB_Div - 7)); 
+    else 
+     clockOfHCLK = SYSCLK / (pow(2, AHB_Div - 7 + 1));
+  }
+
+  if(APB1_Div < 4)
+    clockOfPCLK1 = clockOfHCLK; 
+  else {
+    clockOfPCLK1 = clockOfHCLK / (pow(2, APB1_Div - 3)); 
+  }
+
+  if(APB2_Div < 4)
+    clockOfPCLK2 = clockOfHCLK; 
+  else {
+    clockOfPCLK2 = clockOfHCLK / (pow(2, APB2_Div - 3)); 
+  }
+  SystemCoreClock = clockOfHCLK; 
 }
 
 
@@ -182,11 +222,9 @@ static void set_sys_clock_to_72(void)
  
     /* HCLK = SYSCLK */
     RCC->CFGR |= (uint32_t)RCC_CFGR_HPRE_DIV1;
-      
     /* PCLK2 = HCLK */
     RCC->CFGR |= (uint32_t)RCC_CFGR_PPRE2_DIV1;
-    
-    /* PCLK1 = HCLK */
+    /* PCLK1 = HCLK div 2 */
     RCC->CFGR |= (uint32_t)RCC_CFGR_PPRE1_DIV2;
     /*  PLL configuration: PLLCLK = HSE * 9 = 72 MHz */
     RCC->CFGR &= (uint32_t)((uint32_t)~(RCC_CFGR_PLLSRC | RCC_CFGR_PLLXTPRE |

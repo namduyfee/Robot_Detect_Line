@@ -3,10 +3,8 @@
 
 #define __MAIN__
 
-#define uint8_t unsigned char
-#define uint16_t unsigned short
-#define uint32_t unsigned int
-#define int16_t short
+#include <stdint.h>
+
 #define __IO volatile
 
 
@@ -22,6 +20,9 @@
 #include "config.h"
 #include "ADC_Driver.h"
 #include "DMA_Driver.h"
+#include "freeRTOS_hook.h"
+
+
 
 #endif
 

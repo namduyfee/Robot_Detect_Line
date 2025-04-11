@@ -351,6 +351,7 @@
 
 
 #define ADC1 ((ADC_TypeDef*)(ADC1_BASE))
+#define ADC2 ((ADC_TypeDef*)(ADC2_BASE))
 
 typedef struct
 {
@@ -376,6 +377,8 @@ typedef struct
   __IO uint32_t DR;
 } ADC_TypeDef;
 
+extern uint16_t valueADC1[16]; 
+void config_ADC1(void); 
 
 #endif
 

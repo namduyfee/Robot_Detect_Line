@@ -311,6 +311,16 @@
 
 #define DMA1 ((DMA_TypeDef*)(DMA1_BASE))
 #define DMA1_Channel1 ((DMA_Channel_TypeDef*)(DMA1_Channel1_BASE))
+#define DMA1_Channel2 ((DMA_Channel_TypeDef*)(DMA1_Channel2_BASE))
+#define DMA1_Channel3 ((DMA_Channel_TypeDef*)(DMA1_Channel3_BASE))
+#define DMA1_Channel4 ((DMA_Channel_TypeDef*)(DMA1_Channel4_BASE))
+
+#define DMA1_Channel5 ((DMA_Channel_TypeDef*)(DMA1_Channel5_BASE))
+#define DMA1_Channel6 ((DMA_Channel_TypeDef*)(DMA1_Channel6_BASE))
+#define DMA1_Channel7 ((DMA_Channel_TypeDef*)(DMA1_Channel7_BASE))
+
+#define DMA_CHANNEL_DISEN(DMA_Channel) ((DMA_Channel->CCR) &= (~(1)))
+#define DMA_CHANNEL_EN(DMA_Channel) ((DMA_Channel->CCR) |= (1))
 
 typedef struct
 {
@@ -326,5 +336,8 @@ typedef struct
   __IO uint32_t IFCR;
 } DMA_TypeDef;
 
+void initDMAChannel(DMA_Channel_TypeDef* DMA_Channel, volatile void* address_memory, 
+                     volatile uint32_t* address_periph, uint16_t size);   
+void config_DMA1(void);
 
 #endif

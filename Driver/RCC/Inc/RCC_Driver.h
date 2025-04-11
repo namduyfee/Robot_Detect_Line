@@ -140,8 +140,9 @@ typedef struct {
 } RCC_TypeDef; 
 
 
+extern uint32_t clockOfHCLK, clockOfPCLK1, clockOfPCLK2;
+
 void config_RCC(void); 
-void enable_clock_peripherals(void); 
 
 #endif
 

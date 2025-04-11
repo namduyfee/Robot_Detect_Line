@@ -4,6 +4,8 @@
 
 void config_I2C(void) 
 {
+    RCC->APB1ENR |= RCC_APB1ENR_I2C1EN;
+    
     I2C1->CR1 |= (1<<15);   // reset the I2C
 	I2C1->CR1 &= ~(1<<15);  // Normal operation
 

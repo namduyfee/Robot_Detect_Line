@@ -3,7 +3,7 @@ speed 4000
 si SWD
 r
 h
-loadfile D:/My_compass_ver1/Bin/mpu_6050.hex 0x08000000
+loadfile D:/Control_Car/Bin/robot_line.hex 0x08000000
 r
 g
 exit
