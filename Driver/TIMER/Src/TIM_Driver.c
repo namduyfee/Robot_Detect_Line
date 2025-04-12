@@ -41,7 +41,7 @@ void config_TIM2(void)
     RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;
 
     TIM2->ARR = 65535-1; 
-    TIM2->PSC = 72-1; 
+    TIM2->PSC = 7200-1; 
 
     //	// slave mode : reset 
     TIM2->SMCR |= 1<<2; 
@@ -51,7 +51,7 @@ void config_TIM2(void)
     // TI2 map IC2 
 
     TIM2->CCMR1 |= 1<<8; 
-    //	// enable capture 
+    // enable capture 
     TIM2->CCER |= 1<<4; 
 
     TIM2->EGR |= 1; 

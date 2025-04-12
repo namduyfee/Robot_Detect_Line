@@ -19,10 +19,10 @@ void config_ADC1(void)
 	ADC1->CR2   |= (ADC_CR2_CONT | ADC_CR2_EXTSEL | ADC_CR2_EXTTRIG | ADC_CR2_DMA); 
 	// 3 convert
 	ADC1->SQR1  |= (ADC_SQR1_L_1); 
-	// channel 1 is the fist convert, channel 2 is second convert, channel 3 is third convert
-	ADC1->SQR3  |= (ADC_SQR3_SQ1_0 | ADC_SQR3_SQ2_1 | (ADC_SQR3_SQ3_0 | ADC_SQR3_SQ3_1) ); 
+	// channel 2 is the fist convert, channel 3 is second convert, channel 4 is third convert
+	ADC1->SQR3  |= (ADC_SQR3_SQ1_1  | (ADC_SQR3_SQ2_0 | ADC_SQR3_SQ2_1) |  ADC_SQR3_SQ3_2); 
 	// sample time 
-	ADC1->SMPR2 |= (ADC_SMPR2_SMP1 | ADC_SMPR2_SMP2 | ADC_SMPR2_SMP3);  
+	ADC1->SMPR2 |= (ADC_SMPR2_SMP2 | ADC_SMPR2_SMP3 | ADC_SMPR2_SMP4);  
 
 	ADC1->CR2   |= (ADC_CR2_ADON); 
 	// enable regular  by bit swstart 
