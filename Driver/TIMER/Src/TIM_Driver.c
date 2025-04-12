@@ -29,13 +29,6 @@ void config_TIM1(void)
     TIM1->CCMR2 &= 0xF0FF;  
     TIM1->CCMR2 |= 0x6000; 
 
-    TIM1->CCR1 = 500; 
-    TIM1->CCR2 = 500;
-    TIM1->CCR3 = 500;
-    TIM1->CCR4 = 500;
-
-    TIM1->CCER |= (1 | 1<<4 | 1<<8 | 1<<12); 
-
     // set bit UG 
     TIM1->EGR |= 1; 			
     // enable counter 

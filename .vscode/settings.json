@@ -106,7 +106,8 @@
         "stm32f103c8t6.h": "c",
         "flash_driver.h": "c",
         "rcc_driver.h": "c",
-        "mpu_6050_driver.h": "c"
+        "mpu_6050_driver.h": "c",
+        "compare": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

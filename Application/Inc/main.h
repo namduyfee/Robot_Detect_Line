@@ -22,7 +22,7 @@
 #include "DMA_Driver.h"
 #include "freeRTOS_hook.h"
 #include "Servo.h"
-
+#include "Motor.h"
 
 
 #endif
