@@ -21,6 +21,7 @@
 #include "ADC_Driver.h"
 #include "DMA_Driver.h"
 #include "freeRTOS_hook.h"
+#include "Servo.h"
 
 
 
