@@ -23,6 +23,14 @@
 #include "freeRTOS_hook.h"
 #include "Servo.h"
 #include "Motor.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "AFIO_Driver.h"
+#include "NVIC_Driver.h"
+#include "EXTI_Driver.h"
+#include "USART_Driver.h"
+
+
 
 
 #endif

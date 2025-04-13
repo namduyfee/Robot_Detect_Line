@@ -377,7 +377,7 @@ typedef struct
   __IO uint32_t DR;
 } ADC_TypeDef;
 
-extern uint16_t valueADC1[16]; 
+extern volatile uint16_t valueADC1[16]; 
 void config_ADC1(void); 
 
 #endif

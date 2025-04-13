@@ -7,7 +7,7 @@ static void prescaler_clock_ADC(void);
 static void error_ADC(void); 
 
 uint32_t clockADC; 
-uint16_t valueADC1[16]; 
+volatile uint16_t valueADC1[16]; 
 
 void config_ADC1(void) 
 {

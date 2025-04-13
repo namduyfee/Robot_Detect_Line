@@ -7,6 +7,9 @@ void config_GPIOA(void)
 	GPIOA->CRL = 0;
 	GPIOA->CRH = 0;  
 
+	GPIOA->CRL |= 0x08;        // PA0 input pull up/pull down
+	GPIOA->ODR |= 1;           // PA0 input pull up
+
 	GPIOA->CRL |= 0x08<<4;     // PA1 input pull up/pull down
 	GPIOA->ODR |= 1<<1;        // PA1 input pull up	
 
@@ -50,10 +53,5 @@ void config_GPIOB(void)
 
 }
 
-void config_AFIO(void) 
-{
-	RCC->APB2ENR |= RCC_APB2ENR_AFIOEN;
-	// I2C remap 
-	AFIO->MAPR |= 1<<1; 
-}
+
 

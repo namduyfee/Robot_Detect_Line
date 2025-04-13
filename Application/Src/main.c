@@ -1,30 +1,21 @@
 
 #include "main.h"
-#include "FreeRTOS.h"
-#include "task.h"
-
-uint32_t temp =  10; 
-
-void vTaskBlinkLED(void *pvParameters)
-{
-    (void)pvParameters;
-    vTaskDelay(pdMS_TO_TICKS(3000)); // Delay 100 ms
-    while (1)
-    {
-        temp =TIM2->CNT; 
-
-        GPIOC->ODR ^= (1 << 13); // Toggle LED on PC13
-        vTaskDelay(pdMS_TO_TICKS(1000)); // Delay 100 ms
-
-    }
-}
+#include "vTask1.h"
+#include "vTask2.h"
+#include "vTask3.h"
+#include "vTask4.h"
 
 void main(void)
 {
 
     config_STM32F1();
     
-    xTaskCreate(vTaskBlinkLED, "LED_Blink", 128, NULL, 1, NULL);
+    xTaskCreate(vTask1, "LED_Blink", 128, NULL, 1, NULL);
+    xTaskCreate(vTask2, "Read_TIMER_Capture", 128, NULL, 1, NULL);
+    xTaskCreate(vTask3, "Control_Motor", 128, NULL, 1, NULL);
+    xTaskCreate(vTask4, "USART", 128, NULL, 1, NULL);
+
+
     vTaskStartScheduler();
     while(1); 
 
