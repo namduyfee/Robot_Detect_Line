@@ -7,6 +7,8 @@
 #define ON_LED_SAMPLE_KALMAN	(GPIOC->ODR &= (~(1 << 13)))
 #define OFF_LED_SAMPLE_KALMAN	(GPIOC->ODR |= (1 << 13))
 
+#define EXAMPLE_KALMAN_PAGE_FLASH 0x08007C00
+
 typedef struct {
     float q; // Process noise
     float r; // Measurement noise
